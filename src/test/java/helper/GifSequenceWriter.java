@@ -1,4 +1,4 @@
-package gui;//
+package helper;//
 //  GifSequenceWriter.java
 //  
 //  Created by Elliot Kroo on 2009-04-25.
@@ -12,18 +12,16 @@ package gui;//
 import javax.imageio.*;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataNode;
-import javax.imageio.stream.FileImageOutputStream;
 import javax.imageio.stream.ImageOutputStream;
-import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class GifSequenceWriter {
-    protected ImageWriter gifWriter;
-    protected ImageWriteParam imageWriteParam;
-    protected IIOMetadata imageMetaData;
+class GifSequenceWriter implements AutoCloseable {
+
+    private ImageWriter gifWriter;
+    private ImageWriteParam imageWriteParam;
+    private IIOMetadata imageMetaData;
 
     /**
      * Creates a new GifSequenceWriter
@@ -81,14 +79,19 @@ public class GifSequenceWriter {
         gifWriter.prepareWriteSequence(null);
     }
 
-    public void writeToSequence(RenderedImage img) throws IOException {
-        gifWriter.writeToSequence(new IIOImage(img, null, imageMetaData), imageWriteParam);
+    public void writeToSequence(RenderedImage img) {
+        try {
+            gifWriter.writeToSequence(new IIOImage(img, null, imageMetaData), imageWriteParam);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
      * Close this GifSequenceWriter object. This does not close the underlying
      * stream, just finishes off the GIF.
      */
+    @Override
     public void close() throws IOException {
         gifWriter.endWriteSequence();
     }
@@ -127,38 +130,5 @@ public class GifSequenceWriter {
         IIOMetadataNode node = new IIOMetadataNode(nodeName);
         rootNode.appendChild(node);
         return (node);
-    }
-
-    /**
-     * public GifSequenceWriter(
-     * BufferedOutputStream outputStream,
-     * int imageType,
-     * int timeBetweenFramesMS,
-     * boolean loopContinuously) {
-     */
-
-    public static void main(String[] args) throws Exception {
-        if (args.length > 1) {
-            // grab the output image type from the first image in the sequence
-            BufferedImage firstImage = ImageIO.read(new File(args[0]));
-
-            // create a new BufferedOutputStream with the last argument
-            ImageOutputStream output = new FileImageOutputStream(new File(args[args.length - 1]));
-
-            // create a gif sequence with the type of the first image, 1 second
-            // between frames, which loops continuously
-            GifSequenceWriter writer = new GifSequenceWriter(output, firstImage.getType(), 1, false);
-
-            // write out the first image to our sequence...
-            writer.writeToSequence(firstImage);
-            for (int i = 1; i < args.length - 1; i++) {
-                BufferedImage nextImage = ImageIO.read(new File(args[i]));
-                writer.writeToSequence(nextImage);
-            }
-            writer.close();
-            output.close();
-        } else {
-            System.out.println("Usage: java GifSequenceWriter [list of gif files] [output file]");
-        }
     }
 }

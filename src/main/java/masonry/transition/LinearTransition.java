@@ -4,12 +4,16 @@ import masonry.Point;
 
 public class LinearTransition extends TransitionBase {
 
-    private double distance = 0;
+    protected double distance = 0;
 
-    private final Point pointFrom;
+    protected final Point pointFrom;
     private final Point pointTo;
 
-    private double direction;
+    protected double direction;
+
+    public LinearTransition(Point from, Point to) {
+        this(from.x, from.y, to.x, to.y);
+    }
 
     public LinearTransition(int xFrom, int yFrom, int xTo, int yTo) {
         this.pointFrom = new Point(xFrom, yFrom);
@@ -24,7 +28,7 @@ public class LinearTransition extends TransitionBase {
     }
 
     @Override
-    protected Point getLocation() {
+    public Point getLocation() {
         double percentage = getPercentage() * distance;
         int deltaX = (int) (percentage * Math.cos(direction));
         int deltaY = (int) (percentage * Math.sin(direction));
