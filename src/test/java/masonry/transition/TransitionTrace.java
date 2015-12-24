@@ -1,7 +1,7 @@
 package masonry.transition;
 
 import masonry.Point;
-import net.scriptgate.common.Color4f;
+import net.scriptgate.common.Color3f;
 import net.scriptgate.engine.Renderer;
 
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ public class TransitionTrace {
 
     private Transition transition;
     private List<Point> trace;
-    private Color4f color;
+    private Color3f color;
 
-    private TransitionTrace(Transition transition, Color4f color) {
+    private TransitionTrace(Transition transition, Color3f color) {
         this.transition = transition;
         this.trace = new ArrayList<>();
         this.color = color;
@@ -32,7 +32,7 @@ public class TransitionTrace {
         trace.forEach(pointRenderer);
     }
 
-    public static TransitionTrace trace(Transition transition, Color4f color) {
+    public static TransitionTrace trace(Transition transition, Color3f color) {
         return new TransitionTrace(transition, color);
     }
 

@@ -4,7 +4,7 @@ import masonry.Point;
 import masonry.api.Brick;
 import masonry.transition.ArcedTransition;
 import masonry.transition.Transition;
-import net.scriptgate.common.Color4f;
+import net.scriptgate.common.Color3f;
 import net.scriptgate.engine.Renderer;
 
 import static masonry.transition.Transition.none;
@@ -17,7 +17,7 @@ public class ColorBrick implements Brick {
     private int x = 0;
     private int y = 0;
 
-    private Color4f color;
+    private Color3f color;
 
     private boolean layoutInstant = false;
 
@@ -27,7 +27,7 @@ public class ColorBrick implements Brick {
     public ColorBrick(int width, int height) {
         this.width = width;
         this.height = height;
-        this.color = new Color4f(1, 1, 0, 0);
+        this.color = new Color3f(1, 0, 0);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ColorBrick implements Brick {
         return y;
     }
 
-    public Color4f getColor() {
+    public Color3f getColor() {
         return color;
     }
 

@@ -1,7 +1,7 @@
 package masonry.transition;
 
 import masonry.Point;
-import net.scriptgate.common.Color4f;
+import net.scriptgate.common.Color3f;
 import net.scriptgate.engine.Application;
 import net.scriptgate.engine.Engine;
 import net.scriptgate.engine.InputComponent;
@@ -33,8 +33,8 @@ public class TransitionsTest implements Application {
         pointFrom = new Point(16, 16);
         pointTo = new Point(224, 224);
         traces = new ArrayList<>();
-        traces.add(trace(new ArcedTransition(pointFrom, pointTo), new Color4f(1, 0, 0, 1)));
-        traces.add(trace(new LinearTransition(pointFrom, pointTo), new Color4f(1, 0, 1, 0)));
+        traces.add(trace(new ArcedTransition(pointFrom, pointTo), new Color3f(0, 0, 1)));
+        traces.add(trace(new LinearTransition(pointFrom, pointTo), new Color3f(0, 1, 0)));
     }
 
     @Override

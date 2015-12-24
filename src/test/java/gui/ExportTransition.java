@@ -4,7 +4,7 @@ import helper.GifHelper;
 import masonry.Point;
 import masonry.transition.ArcedTransition;
 import masonry.transition.TransitionTrace;
-import net.scriptgate.common.Color4f;
+import net.scriptgate.common.Color3f;
 import net.scriptgate.engine.Application;
 import net.scriptgate.engine.Engine;
 import net.scriptgate.engine.InputComponent;
@@ -34,13 +34,16 @@ public class ExportTransition implements Application {
     private boolean hasScreenChanged = true;
 
     @Override
-    public void initialize() {
+    public void initializeProperties() {
         Engine.WIDTH = 256;
         Engine.HEIGHT = 256;
+    }
 
+    @Override
+    public void initialize() {
         pointFrom = new Point(16, 16);
         pointTo = new Point(224, 224);
-        trace = trace(new ArcedTransition(pointFrom, pointTo), new Color4f(1, 0, 1, 0));
+        trace = trace(new ArcedTransition(pointFrom, pointTo), new Color3f(0, 1, 0));
 
         screenCaptures = new ArrayList<>();
     }
