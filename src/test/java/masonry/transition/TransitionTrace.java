@@ -28,7 +28,7 @@ public class TransitionTrace {
     }
 
     public void render(Renderer renderer, Consumer<Point> pointRenderer) {
-        renderer.setColor(color.r, color.g, color.b);
+        renderer.setColor(color);
         trace.forEach(pointRenderer);
     }
 

@@ -123,7 +123,7 @@ public final class BasicMasonry extends Outlayer implements Masonry {
     public static class Mason {
 
         private int columnWidth;
-        private Container container;
+        private Container<? extends Brick> container;
 
         private Mason() {
 
@@ -134,7 +134,7 @@ public final class BasicMasonry extends Outlayer implements Masonry {
             return this;
         }
 
-        public Mason on(Container container) {
+        public Mason on(Container<? extends Brick> container) {
             this.container = container;
             return this;
         }

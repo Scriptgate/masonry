@@ -8,6 +8,7 @@ import net.scriptgate.common.Color3f;
 import net.scriptgate.engine.Renderer;
 
 import static masonry.transition.Transition.none;
+import static net.scriptgate.common.Color3f.BLACK;
 
 public class ColorBrick implements Brick {
 
@@ -21,7 +22,7 @@ public class ColorBrick implements Brick {
 
     private boolean layoutInstant = false;
 
-    private Transition transition = none(0,0);
+    private Transition transition = none(0, 0);
     private boolean initialLayoutDone = false;
 
     public ColorBrick(int width, int height) {
@@ -94,7 +95,7 @@ public class ColorBrick implements Brick {
     public void render(Renderer renderer) {
         int strokeWidth = 2;
 
-        renderer.setColor(0, 0, 0);
+        renderer.setColor(BLACK);
         renderer.fillRect(getX(), getY(), getWidth(), getHeight());
         renderer.setColor(getColor());
         renderer.fillRect(

@@ -25,7 +25,7 @@ public class GifHelper {
              GifSequenceWriter writer = new GifSequenceWriter(output, imageType, timeBetweenFramesMS, loopContinuously)) {
             images.forEach(writer::writeToSequence);
         } catch (IOException e) {
-            log.error("An error occurred whilst creating gif file '"+outputFile.getName()+"': ", e);
+            log.error("An error occurred whilst creating gif file '" + outputFile.getName() + "': ", e);
         }
     }
 }

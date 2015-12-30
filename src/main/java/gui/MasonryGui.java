@@ -56,7 +56,7 @@ public class MasonryGui implements Application {
                     height = (int) (Math.floor(3 * Math.random() + 1) * 40);
                     brick = new ColorBrick(width, height);
                     grid.addBrick(brick);
-                    if(grid.getItems().isEmpty()) {
+                    if (grid.getItems().isEmpty()) {
                         break;
                     }
                     int elementsToSkip = new Random().nextInt(grid.getItems().size());

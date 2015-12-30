@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static masonry.transition.TransitionTrace.trace;
+import static net.scriptgate.common.Color3f.RED;
 import static net.scriptgate.engine.ApplicationHandlerBuilder.run;
 import static net.scriptgate.engine.ApplicationType.OPENGL;
 
@@ -43,7 +44,7 @@ public class TransitionsTest implements Application {
                 trace.render(renderer, point -> renderer.fillCircle(point.x, point.y, 2))
         );
 
-        renderer.setColor(1, 0, 0);
+        renderer.setColor(RED);
         renderer.fillCircle(pointFrom.x, pointFrom.y, 2);
         renderer.fillCircle(pointTo.x, pointTo.y, 2);
     }

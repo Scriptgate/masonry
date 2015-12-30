@@ -43,22 +43,22 @@ public class ColorBrickTest {
         ColorBrick brick = new ColorBrick(100, 100);
         brick.moveTo(100, 100);
 
-        brick.update(100/3);
+        brick.update(100 / 3);
 
         assertThat(brick.getX()).isEqualTo(33);
         assertThat(brick.getY()).isEqualTo(33);
 
-        brick.update(100/3);
+        brick.update(100 / 3);
 
         assertThat(brick.getX()).isEqualTo(66);
         assertThat(brick.getY()).isEqualTo(66);
 
-        brick.update(100/3);
+        brick.update(100 / 3);
 
         assertThat(brick.getX()).isEqualTo(99);
         assertThat(brick.getY()).isEqualTo(99);
 
-        brick.update(100/3);
+        brick.update(100 / 3);
 
         assertThat(brick.getX()).isEqualTo(100);
         assertThat(brick.getY()).isEqualTo(100);
