@@ -1,6 +1,7 @@
 package masonry;
 
 import masonry.api.Brick;
+import masonry.api.BrickContainer;
 import masonry.api.Masonry;
 
 import static java.util.stream.IntStream.of;
@@ -14,7 +15,7 @@ public final class BasicMasonry extends Outlayer implements Masonry {
     private int gutter = 0;
 
     //TODO: private
-    public BasicMasonry(Container<? extends Brick> element, int columnWidth) {
+    public BasicMasonry(BrickContainer<? extends Brick> element, int columnWidth) {
         super(element, columnWidth);
     }
 
@@ -123,7 +124,7 @@ public final class BasicMasonry extends Outlayer implements Masonry {
     public static class Mason {
 
         private int columnWidth;
-        private Container<? extends Brick> container;
+        private BrickContainer<? extends Brick> container;
 
         private Mason() {
 
@@ -134,7 +135,7 @@ public final class BasicMasonry extends Outlayer implements Masonry {
             return this;
         }
 
-        public Mason on(Container<? extends Brick> container) {
+        public Mason on(BrickContainer<? extends Brick> container) {
             this.container = container;
             return this;
         }

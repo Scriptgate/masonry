@@ -1,7 +1,7 @@
 package gui;
 
 import masonry.BasicMasonry;
-import masonry.Container;
+import masonry.BrickListContainer;
 import net.scriptgate.common.Rectangle;
 import net.scriptgate.engine.Application;
 import net.scriptgate.engine.InputComponent;
@@ -23,13 +23,13 @@ public class MasonryGui implements Application {
     }
 
     private BasicMasonry masonry;
-    private Container<ColorBrick> grid;
+    private BrickListContainer<ColorBrick> container;
 
 
     @Override
     public void initialize() {
-        grid = new Container<>(WIDTH, HEIGHT);
-        masonry = new BasicMasonry(grid, 40);
+        container = new BrickListContainer<>(WIDTH, HEIGHT);
+        masonry = new BasicMasonry(container, 40);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class MasonryGui implements Application {
 
     @Override
     public void onTick(InputComponent inputComponent, double elapsedTime) {
-        grid.getItems().stream().forEach(brick -> brick.update(elapsedTime));
+        container.getBricks().stream().forEach(brick -> brick.update(elapsedTime));
 
         for (Integer key : inputComponent.getPressedKeys()) {
             //TODO: find a way around implementation-dependant keys
@@ -48,23 +48,23 @@ public class MasonryGui implements Application {
                     int width = (int) (Math.floor(2 * Math.random() + 1) * 40);
                     int height = (int) (Math.floor(3 * Math.random() + 1) * 40);
                     ColorBrick brick = new ColorBrick(width, height);
-                    grid.addBrick(brick);
+                    container.addBrick(brick);
                     masonry.layout();
                     break;
                 case 0x57://W
                     width = (int) (Math.floor(2 * Math.random() + 1) * 40);
                     height = (int) (Math.floor(3 * Math.random() + 1) * 40);
                     brick = new ColorBrick(width, height);
-                    grid.addBrick(brick);
-                    if (grid.getItems().isEmpty()) {
+                    container.addBrick(brick);
+                    if (container.getBricks().isEmpty()) {
                         break;
                     }
-                    int elementsToSkip = new Random().nextInt(grid.getItems().size());
-                    grid.getItems().stream()
+                    int elementsToSkip = new Random().nextInt(container.getBricks().size());
+                    container.getBricks().stream()
                             .skip(elementsToSkip)
                             .findFirst()
                             .ifPresent(b -> {
-                                grid.getItems().remove(b);
+                                container.getBricks().remove(b);
                                 masonry.layout();
                             });
                     break;
@@ -74,14 +74,14 @@ public class MasonryGui implements Application {
 
     @Override
     public void onClick(int x, int y) {
-        grid.getItems()
+        container.getBricks()
                 .stream()
                 .filter(brick -> {
                     Rectangle bounds = new Rectangle(brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight());
                     return bounds.contains(x, y);
                 })
                 .findFirst().ifPresent(brick -> {
-            grid.removeBrick(brick);
+            container.removeBrick(brick);
             masonry.layout();
         });
     }
@@ -89,7 +89,7 @@ public class MasonryGui implements Application {
     @Override
     public void render(Renderer renderer) {
         renderer.setOpacity(0.5f);
-        grid.getItems().forEach(brick -> {
+        container.getBricks().forEach(brick -> {
             brick.render(renderer);
         });
     }

@@ -1,20 +1,23 @@
 package masonry;
 
 import masonry.api.Brick;
+import masonry.api.BrickContainer;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-public class Container<T extends Brick> {
+public class BrickListContainer<T extends Brick> implements BrickContainer<T> {
 
     private Size size;
-    private Collection<T> items = new ArrayList<>();
+    private List<T> items = new ArrayList<>();
 
-    public Container(int width, int height) {
+    public BrickListContainer(int width, int height) {
         this.size = new Size(width, height);
     }
 
-    public Collection<T> getItems() {
+    @Override
+    public Collection<T> getBricks() {
         return items;
     }
 
@@ -22,19 +25,17 @@ public class Container<T extends Brick> {
         this.items.add(brick);
     }
 
-    public void setSize(int width, int height) {
-        this.size = new Size(width, height);
+    public void removeBrick(T brick) {
+        this.items.remove(brick);
     }
 
+    @Override
     public int getHeight() {
         return size.height;
     }
 
+    @Override
     public int getWidth() {
         return size.width;
-    }
-
-    public void removeBrick(T brick) {
-        this.items.remove(brick);
     }
 }

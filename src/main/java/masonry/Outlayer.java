@@ -1,6 +1,7 @@
 package masonry;
 
 import masonry.api.Brick;
+import masonry.api.BrickContainer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,13 +13,13 @@ public abstract class Outlayer {
     public static boolean IS_INIT_LAYOUT = true;
 
 
-    protected Container<? extends Brick> element;
+    protected BrickContainer<? extends Brick> element;
     private Collection<? extends Brick> items;
     private boolean isLayoutInited = false;
 
     public int columnWidth = 50;
 
-    public Outlayer(Container<? extends Brick> element, int columnWidth) {
+    public Outlayer(BrickContainer<? extends Brick> element, int columnWidth) {
         this.columnWidth = columnWidth;
 
         //TODO: validate element
@@ -32,7 +33,7 @@ public abstract class Outlayer {
     }
 
     private void create() {
-        this.items = this.element.getItems();
+        this.items = this.element.getBricks();
     }
 
     public void layout() {
