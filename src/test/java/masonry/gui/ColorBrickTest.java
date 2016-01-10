@@ -1,5 +1,6 @@
-package gui;
+package masonry.gui;
 
+import masonry.demo.ColorBrick;
 import org.junit.Ignore;
 import org.junit.Test;
 

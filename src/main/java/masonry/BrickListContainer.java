@@ -2,6 +2,7 @@ package masonry;
 
 import masonry.api.Brick;
 import masonry.api.BrickContainer;
+import net.scriptgate.common.Point;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,11 +10,11 @@ import java.util.List;
 
 public class BrickListContainer<T extends Brick> implements BrickContainer<T> {
 
-    private Size size;
+    private Point size;
     private List<T> items = new ArrayList<>();
 
     public BrickListContainer(int width, int height) {
-        this.size = new Size(width, height);
+        this.size = new Point(width, height);
     }
 
     @Override
@@ -31,11 +32,11 @@ public class BrickListContainer<T extends Brick> implements BrickContainer<T> {
 
     @Override
     public int getHeight() {
-        return size.height;
+        return size.y;
     }
 
     @Override
     public int getWidth() {
-        return size.width;
+        return size.x;
     }
 }

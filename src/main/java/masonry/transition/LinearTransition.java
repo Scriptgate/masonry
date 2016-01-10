@@ -1,8 +1,13 @@
 package masonry.transition;
 
-import masonry.Point;
+import masonry.api.Transition;
+import net.scriptgate.common.Point;
+
+import java.util.function.BiFunction;
 
 public class LinearTransition extends TransitionBase {
+
+    public static final BiFunction<Point, Point, Transition> LINEAR = (from, to) -> new LinearTransition(from.x, from.y, to.x, to.y);
 
     protected double distance = 0;
 

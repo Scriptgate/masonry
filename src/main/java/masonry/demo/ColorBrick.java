@@ -1,13 +1,11 @@
-package gui;
+package masonry.demo;
 
-import masonry.Point;
 import masonry.api.Brick;
-import masonry.transition.ArcedTransition;
-import masonry.transition.Transition;
+import masonry.transition.TransitionComponent;
 import net.scriptgate.common.Color3f;
 import net.scriptgate.engine.Renderer;
 
-import static masonry.transition.Transition.none;
+import static masonry.transition.LinearTransition.LINEAR;
 import static net.scriptgate.common.Color3f.BLACK;
 
 public class ColorBrick implements Brick {
@@ -15,15 +13,10 @@ public class ColorBrick implements Brick {
     private int height;
     private int width;
 
-    private int x = 0;
-    private int y = 0;
-
     private Color3f color;
 
-    private boolean layoutInstant = false;
+    private TransitionComponent transitionComponent = new TransitionComponent(LINEAR);
 
-    private Transition transition = none(0, 0);
-    private boolean initialLayoutDone = false;
 
     public ColorBrick(int width, int height) {
         this.width = width;
@@ -33,10 +26,7 @@ public class ColorBrick implements Brick {
 
     @Override
     public void goTo(int x, int y) {
-        this.x = x;
-        this.y = y;
-        transition = none(x, y);
-        this.initialLayoutDone = true;
+        transitionComponent.goTo(x, y);
     }
 
     @Override
@@ -51,17 +41,17 @@ public class ColorBrick implements Brick {
 
     @Override
     public boolean isLayoutInstant() {
-        return layoutInstant || !initialLayoutDone;
+        return transitionComponent.isLayoutInstant();
     }
 
     @Override
     public int getX() {
-        return x;
+        return transitionComponent.getX();
     }
 
     @Override
     public int getY() {
-        return y;
+        return transitionComponent.getY();
     }
 
     public Color3f getColor() {
@@ -70,27 +60,12 @@ public class ColorBrick implements Brick {
 
     @Override
     public void moveTo(int x, int y) {
-        if (x == this.x && y == this.y) {
-            return;
-        }
-        if (x == transition.toX() && y == transition.toY()) {
-            return;
-        }
-        transition = new ArcedTransition(this.x, this.y, x, y);
+        transitionComponent.moveTo(x, y);
     }
 
     public void update(double elapsedTime) {
-        Point position = transition.getLocationAt(elapsedTime);
-        if (this.x != position.x || this.y != position.y) {
-            this.x = position.x;
-            this.y = position.y;
-        }
+        transitionComponent.update(elapsedTime);
     }
-
-    public void setLayoutInstant(boolean layoutInstant) {
-        this.layoutInstant = layoutInstant;
-    }
-
 
     public void render(Renderer renderer) {
         int strokeWidth = 2;

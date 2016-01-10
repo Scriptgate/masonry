@@ -1,10 +1,10 @@
-package gui;
+package masonry.gui;
 
 import helper.GifHelper;
-import masonry.Point;
 import masonry.transition.ArcedTransition;
 import masonry.transition.TransitionTrace;
 import net.scriptgate.common.Color3f;
+import net.scriptgate.common.Point;
 import net.scriptgate.engine.Application;
 import net.scriptgate.engine.Engine;
 import net.scriptgate.engine.InputComponent;

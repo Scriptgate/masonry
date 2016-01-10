@@ -1,7 +1,8 @@
 package masonry.transition;
 
-import masonry.Point;
+import masonry.api.Transition;
 import net.scriptgate.common.Color3f;
+import net.scriptgate.common.Point;
 import net.scriptgate.engine.Renderer;
 
 import java.util.ArrayList;

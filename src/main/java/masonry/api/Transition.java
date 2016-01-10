@@ -1,13 +1,14 @@
-package masonry.transition;
+package masonry.api;
 
-import masonry.Point;
+import net.scriptgate.common.Point;
 
 public interface Transition {
+
     int toX();
 
     int toY();
 
-    double getPercentage();
+    float getPercentage();
 
     Point getLocationAt(double elapsedTime);
 
@@ -32,7 +33,7 @@ public interface Transition {
             }
 
             @Override
-            public double getPercentage() {
+            public float getPercentage() {
                 return 1;
             }
 

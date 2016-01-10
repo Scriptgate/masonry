@@ -1,11 +1,12 @@
 package masonry.transition;
 
-import masonry.Point;
+import masonry.api.Transition;
+import net.scriptgate.common.Point;
 
 public abstract class TransitionBase implements Transition {
 
-    protected static double TRANSITION_SPEED = 1000;
-    private double transition = 0;
+    public static float TRANSITION_SPEED = 1000;
+    private float transition = 0;
     private boolean isCompleted = false;
 
     public Point getLocationAt(double elapsedTime) {
@@ -25,7 +26,7 @@ public abstract class TransitionBase implements Transition {
     public abstract Point getLocation();
 
     @Override
-    public double getPercentage() {
+    public float getPercentage() {
         return transition / TRANSITION_SPEED;
     }
 

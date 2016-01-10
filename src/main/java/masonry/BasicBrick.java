@@ -1,14 +1,15 @@
 package masonry;
 
 import masonry.api.Brick;
+import net.scriptgate.common.Point;
 
 class BasicBrick implements Brick {
     private boolean isLayoutInstant = false;
-    private Size size;
+    private Point size;
     private Point position = new Point(0, 0);
 
     public BasicBrick(int width, int height) {
-        size = new Size(width, height);
+        size = new Point(width, height);
     }
 
     @Override
@@ -18,12 +19,12 @@ class BasicBrick implements Brick {
 
     @Override
     public int getHeight() {
-        return size.height;
+        return size.y;
     }
 
     @Override
     public int getWidth() {
-        return size.width;
+        return size.x;
     }
 
     @Override

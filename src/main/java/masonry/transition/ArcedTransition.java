@@ -1,8 +1,13 @@
 package masonry.transition;
 
-import masonry.Point;
+import masonry.api.Transition;
+import net.scriptgate.common.Point;
+
+import java.util.function.BiFunction;
 
 public class ArcedTransition extends LinearTransition {
+
+    public static final BiFunction<Point, Point, Transition> ARCED = (from, to) -> new ArcedTransition(from.x, from.y, to.x, to.y);
 
     public ArcedTransition(Point from, Point to) {
         this(from.x, from.y, to.x, to.y);

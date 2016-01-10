@@ -1,4 +1,4 @@
-package gui;
+package masonry.demo;
 
 import masonry.BasicMasonry;
 import masonry.BrickListContainer;
@@ -15,8 +15,6 @@ import static net.scriptgate.engine.Engine.HEIGHT;
 import static net.scriptgate.engine.Engine.WIDTH;
 
 public class MasonryGui implements Application {
-
-    private boolean intialized = false;
 
     public static void main(String[] args) {
         run(new MasonryGui()).in(OPENGL);
@@ -43,18 +41,15 @@ public class MasonryGui implements Application {
 
         for (Integer key : inputComponent.getPressedKeys()) {
             //TODO: find a way around implementation-dependant keys
+            int width = (int) (Math.floor(2 * Math.random() + 1) * 40);
+            int height = (int) (Math.floor(3 * Math.random() + 1) * 40);
+            ColorBrick brick = new ColorBrick(width, height);
             switch (key) {
                 case 0x51://Q
-                    int width = (int) (Math.floor(2 * Math.random() + 1) * 40);
-                    int height = (int) (Math.floor(3 * Math.random() + 1) * 40);
-                    ColorBrick brick = new ColorBrick(width, height);
                     container.addBrick(brick);
                     masonry.layout();
                     break;
                 case 0x57://W
-                    width = (int) (Math.floor(2 * Math.random() + 1) * 40);
-                    height = (int) (Math.floor(3 * Math.random() + 1) * 40);
-                    brick = new ColorBrick(width, height);
                     container.addBrick(brick);
                     if (container.getBricks().isEmpty()) {
                         break;

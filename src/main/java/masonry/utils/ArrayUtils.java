@@ -1,4 +1,4 @@
-package masonry;
+package masonry.utils;
 
 public class ArrayUtils {
 

@@ -5,7 +5,7 @@ import masonry.api.BrickContainer;
 import masonry.api.Masonry;
 
 import static java.util.stream.IntStream.of;
-import static masonry.ArrayUtils.indexOf;
+import static masonry.utils.ArrayUtils.indexOf;
 
 public final class BasicMasonry extends Outlayer implements Masonry {
 
