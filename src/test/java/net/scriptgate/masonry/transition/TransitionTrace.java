@@ -1,4 +1,4 @@
-package masonry.transition;
+package net.scriptgate.masonry.transition;
 
 import net.scriptgate.common.Color3f;
 import net.scriptgate.common.Point;

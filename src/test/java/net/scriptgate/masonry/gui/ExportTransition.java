@@ -1,6 +1,5 @@
-package masonry.gui;
+package net.scriptgate.masonry.gui;
 
-import masonry.transition.TransitionTrace;
 import net.scriptgate.common.Color3f;
 import net.scriptgate.common.Point;
 import net.scriptgate.engine.Application;
@@ -10,6 +9,7 @@ import net.scriptgate.engine.Renderer;
 import net.scriptgate.engine.lwjgl.util.FileUtil;
 import net.scriptgate.helper.GifHelper;
 import net.scriptgate.masonry.transition.ArcedTransition;
+import net.scriptgate.masonry.transition.TransitionTrace;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static masonry.transition.TransitionTrace.trace;
 import static net.scriptgate.common.Color3f.RED;
 import static net.scriptgate.masonry.Launcher.launch;
+import static net.scriptgate.masonry.transition.TransitionTrace.trace;
 
 public class ExportTransition implements Application {
 

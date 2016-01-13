@@ -1,4 +1,4 @@
-package masonry.transition;
+package net.scriptgate.masonry.transition;
 
 import net.scriptgate.common.Color3f;
 import net.scriptgate.common.Point;
@@ -6,15 +6,13 @@ import net.scriptgate.engine.Application;
 import net.scriptgate.engine.Engine;
 import net.scriptgate.engine.InputComponent;
 import net.scriptgate.engine.Renderer;
-import net.scriptgate.masonry.transition.ArcedTransition;
-import net.scriptgate.masonry.transition.LinearTransition;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static masonry.transition.TransitionTrace.trace;
 import static net.scriptgate.common.Color3f.RED;
 import static net.scriptgate.masonry.Launcher.launch;
+import static net.scriptgate.masonry.transition.TransitionTrace.trace;
 
 public class TransitionsTest implements Application {
 
