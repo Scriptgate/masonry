@@ -9,6 +9,8 @@ public class ArcedTransition extends LinearTransition {
 
     public static final BiFunction<Point, Point, Transition> ARCED = (from, to) -> new ArcedTransition(from.x, from.y, to.x, to.y);
 
+    public static final int ARC_HEIGHT = 10;
+
     public ArcedTransition(Point from, Point to) {
         this(from.x, from.y, to.x, to.y);
     }
@@ -19,7 +21,7 @@ public class ArcedTransition extends LinearTransition {
 
     @Override
     public Point getLocation() {
-        double offset = Math.sin(getPercentage() * Math.PI) * 50;
+        double offset = Math.sin(getPercentage() * Math.PI) * ARC_HEIGHT;
 
         //leans right when direction is down
         //leans left when direction is up
