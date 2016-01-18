@@ -3,6 +3,7 @@ package net.scriptgate.masonry.demo;
 import net.scriptgate.common.Rectangle;
 import net.scriptgate.engine.Application;
 import net.scriptgate.engine.InputComponent;
+import net.scriptgate.engine.Key;
 import net.scriptgate.engine.Renderer;
 import net.scriptgate.masonry.BasicMasonry;
 import net.scriptgate.masonry.BrickListContainer;
@@ -30,7 +31,7 @@ public class MasonryGui implements Application {
     }
 
     @Override
-    public void onKeyDown(int key) {
+    public void onKeyDown(Key key) {
 
     }
 
@@ -38,17 +39,16 @@ public class MasonryGui implements Application {
     public void onTick(InputComponent inputComponent, double elapsedTime) {
         container.getBricks().stream().forEach(brick -> brick.update(elapsedTime));
 
-        for (Integer key : inputComponent.getPressedKeys()) {
-            //TODO: find a way around implementation-dependant keys
+        inputComponent.getPressedKeys().forEach(key -> {
             int width = (int) (Math.floor(2 * Math.random() + 1) * 40);
             int height = (int) (Math.floor(3 * Math.random() + 1) * 40);
             ColorBrick brick = new ColorBrick(width, height);
-            switch (key) {
-                case 0x51://Q
+            switch (key.keyName) {
+                case "Q":
                     container.addBrick(brick);
                     masonry.layout();
                     break;
-                case 0x57://W
+                case "W":
                     container.addBrick(brick);
                     if (container.getBricks().isEmpty()) {
                         break;
@@ -63,7 +63,7 @@ public class MasonryGui implements Application {
                             });
                     break;
             }
-        }
+        });
     }
 
     @Override
