@@ -75,4 +75,8 @@ public class TransitionComponent {
     public void setLayoutInstant(boolean layoutInstant) {
         this.layoutInstant = layoutInstant;
     }
+
+    public boolean isCompleted() {
+        return transition.isCompleted();
+    }
 }
