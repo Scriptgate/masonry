@@ -1,6 +1,7 @@
-include ':engine-api', ':engine-lwjgl'
+include ':engine-api',':engine-core', ':engine-lwjgl'
 
 project(':engine-api').projectDir = file('../engine-api')
+project(':engine-core').projectDir = file('../engine-core')
 project(':engine-lwjgl').projectDir = file('../engine-lwjgl')
 
 rootProject.name = 'masonry'
