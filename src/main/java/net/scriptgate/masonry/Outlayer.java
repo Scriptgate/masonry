@@ -14,7 +14,6 @@ public abstract class Outlayer {
 
 
     protected BrickContainer<? extends Brick> element;
-    private Collection<? extends Brick> items;
     private boolean isLayoutInited = false;
 
     public int columnWidth = 50;
@@ -25,15 +24,9 @@ public abstract class Outlayer {
         //TODO: validate element
         this.element = element;
 
-        this.create();
-
         if (IS_INIT_LAYOUT) {
             this.layout();
         }
-    }
-
-    private void create() {
-        this.items = this.element.getBricks();
     }
 
     public void layout() {
@@ -41,14 +34,14 @@ public abstract class Outlayer {
 
         // don't animate first layout
         boolean isInstant = IS_LAYOUT_INSTANT || !this.isLayoutInited;
-        this.layoutItems(this.items, isInstant);
+        this.layoutItems(isInstant);
 
         // flag for initalized
         this.isLayoutInited = true;
     }
 
-    private void layoutItems(Collection<? extends Brick> items, boolean isInstant) {
-        this._layoutItems(items, isInstant);
+    private void layoutItems(boolean isInstant) {
+        this._layoutItems(element.getBricks(), isInstant);
 
         this.postLayout();
     }
@@ -108,6 +101,6 @@ public abstract class Outlayer {
     }
 
     public Collection<? extends Brick> getItems() {
-        return items;
+        return element.getBricks();
     }
 }
