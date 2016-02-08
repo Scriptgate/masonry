@@ -79,4 +79,12 @@ public class TransitionComponent {
     public boolean isCompleted() {
         return transition.isCompleted();
     }
+
+    public int getDestinationX() {
+        return transition.toX();
+    }
+
+    public int getDestinationY() {
+        return transition.toY();
+    }
 }

@@ -10,7 +10,7 @@ public abstract class TransitionBase implements Transition {
     private boolean isCompleted = false;
 
     public Point getLocationAt(double elapsedTime) {
-        if (isCompleted) {
+        if (isCompleted()) {
             return new Point(toX(), toY());
         }
 
