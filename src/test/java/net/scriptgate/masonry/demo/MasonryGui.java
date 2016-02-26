@@ -43,6 +43,9 @@ public class MasonryGui implements Application {
             int width = (int) (Math.floor(2 * Math.random() + 1) * 40);
             int height = (int) (Math.floor(3 * Math.random() + 1) * 40);
             ColorBrick brick = new ColorBrick(width, height);
+            if(key.getKeyName() == null) {
+                return;
+            }
             switch (key.getKeyName()) {
                 case "q":
                     container.addBrick(brick);
