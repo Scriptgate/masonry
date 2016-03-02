@@ -6,6 +6,7 @@ import net.scriptgate.engine.Application;
 import net.scriptgate.engine.Engine;
 import net.scriptgate.engine.InputComponent;
 import net.scriptgate.engine.Renderer;
+import net.scriptgate.engine.lwjgl.OpenGLScreenshotHelper;
 import net.scriptgate.engine.lwjgl.util.FileUtil;
 import net.scriptgate.helper.GifHelper;
 import net.scriptgate.masonry.transition.ArcedTransition;
@@ -57,7 +58,7 @@ public class ExportTransition implements Application {
         renderer.fillCircle(pointTo.x, pointTo.y, 2);
 
         if (hasScreenChanged) {
-            screenCaptures.add(renderer.printScreen());
+            screenCaptures.add(OpenGLScreenshotHelper.getScreenshot());
             hasScreenChanged = false;
         }
     }
