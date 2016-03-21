@@ -19,8 +19,8 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '19.0'
 
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.13'
-    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.13'
 
+    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.13'
     testCompile group: 'net.scriptgate.engine', name: 'engine-lwjgl', version: '0.0.1-SNAPSHOT', changing: true
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.3.0'
