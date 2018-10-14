@@ -1,17 +1,16 @@
 package net.scriptgate.masonry.transition
 
-import net.scriptgate.common.Color3f
 import net.scriptgate.common.Point
 import net.scriptgate.engine.Application
 import net.scriptgate.engine.Engine
 import net.scriptgate.engine.InputComponent
 import net.scriptgate.engine.Renderer
-import net.scriptgate.masonry.transition.linear.LinearTransition
-import net.scriptgate.masonry.transition.linear.arc.ArcedTransition
 
-import static net.scriptgate.common.Color3f.RED
+import static net.scriptgate.common.Color3f.*
 import static net.scriptgate.masonry.Launcher.launch
 import static net.scriptgate.masonry.transition.TransitionTrace.trace
+import static net.scriptgate.masonry.transition.linear.LinearTransition.LINEAR
+import static net.scriptgate.masonry.transition.linear.arc.ArcedTransition.ARCED
 
 class TransitionsTest implements Application {
 
@@ -23,17 +22,19 @@ class TransitionsTest implements Application {
     private Point pointTo
     private List<TransitionTrace> traces
 
+    @Override
+    void initializeProperties() {
+        Engine.WIDTH = 256
+        Engine.HEIGHT = 256
+    }
 
     @Override
     void initialize() {
-        Engine.WIDTH = 256
-        Engine.HEIGHT = 256
-
         pointFrom = new Point(16, 16)
         pointTo = new Point(224, 224)
         traces = new ArrayList<>()
-        traces.add(trace(ArcedTransition.ARCED.call(pointFrom, pointTo), new Color3f(0, 0, 1)))
-        traces.add(trace(LinearTransition.LINEAR.call(pointFrom, pointTo), new Color3f(0, 1, 0)))
+        traces.add(trace(ARCED(pointFrom, pointTo), BLUE))
+        traces.add(trace(LINEAR(pointFrom, pointTo), GREEN))
     }
 
     @Override
