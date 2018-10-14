@@ -1,13 +1,15 @@
 package net.scriptgate.masonry.transition
 
 import net.scriptgate.common.Point
+import net.scriptgate.masonry.api.Brick
 import net.scriptgate.masonry.api.Transition
+import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
 import java.util.function.BiFunction
 
 import static net.scriptgate.masonry.transition.TransitionBase.stayAt
 
-class TransitionComponent {
+class TransitionComponent implements Brick {
 
     private int x = 0
     private int y = 0
@@ -23,8 +25,9 @@ class TransitionComponent {
         this.TransitionSupplier = TransitionSupplier
     }
 
+    @Override
     void goTo(int x, int y) {
-        if (isNullTransition(x, y)) {
+        if (isZeroTransition(x, y)) {
             return
         }
         this.x = x
@@ -33,7 +36,9 @@ class TransitionComponent {
         this.initialLayoutDone = true
     }
 
-    private boolean isNullTransition(int x, int y) {
+    private boolean shouldMove(int x, int y) { !isZeroTransition(x, y) }
+
+    private boolean isZeroTransition(int x, int y) {
         if (x == this.x && y == this.y) {
             return true
         }
@@ -43,28 +48,20 @@ class TransitionComponent {
         return false
     }
 
+    @Override
     void moveTo(int x, int y) {
-        if (isNullTransition(x, y)) {
-            return
+        if (shouldMove(x, y)) {
+            transition = TransitionSupplier.apply(new Point(this.x, this.y), new Point(x, y))
         }
-        transition = TransitionSupplier.apply(new Point(this.x, this.y), new Point(x, y))
     }
 
-    boolean isLayoutInstant() {
-        return layoutInstant || !initialLayoutDone
-    }
+    @Override boolean isLayoutInstant() { return layoutInstant || !initialLayoutDone }
 
-    int getX() {
-        return x
-    }
+    @Override int getX() { return x }
 
-    int getY() {
-        return y
-    }
+    @Override int getY() { return y }
 
-    double getPercentage() {
-        return transition.getPercentage()
-    }
+    double getPercentage() { return transition.getPercentage() }
 
     void update(double elapsedTime) {
         Point position = transition.getLocationAt(elapsedTime)
@@ -89,4 +86,16 @@ class TransitionComponent {
     int getDestinationY() {
         return transition.toY()
     }
+
+    @Override
+    int getWidth() {
+        //TODO:
+        throw new NotImplementedException()
+    }
+
+    @Override int getHeight() {
+        //TODO:
+        throw new NotImplementedException()
+    }
+
 }
