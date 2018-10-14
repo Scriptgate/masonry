@@ -1,4 +1,17 @@
+buildscript {
+    ext.kotlin_version = '1.2.61'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 apply plugin: 'java'
+apply plugin: 'kotlin'
 apply plugin: 'maven'
 
 group 'net.scriptgate.masonry'
@@ -24,10 +37,11 @@ dependencies {
     testCompile group: 'net.scriptgate.engine', name: 'engine-lwjgl', version: '0.0.1-SNAPSHOT', changing: true
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.3.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
 configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+    it.resolutionStrategy.cacheChangingModulesFor 0, "seconds"
 }
 
 task createPom << {
@@ -41,11 +55,21 @@ task createPom << {
     }.writeTo("${project.libsDir}/${project.name}-${project.version}.pom")
 }
 
-task sourceJar(type: org.gradle.api.tasks.bundling.Jar, dependsOn: classes) {
+task sourceJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
 artifacts {
     archives sourceJar
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
