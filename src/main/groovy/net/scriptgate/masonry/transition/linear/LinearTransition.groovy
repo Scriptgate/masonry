@@ -4,11 +4,9 @@ import net.scriptgate.common.Point
 import net.scriptgate.masonry.api.Transition
 import net.scriptgate.masonry.transition.TransitionBase
 
-import java.util.function.BiFunction
-
 class LinearTransition extends TransitionBase {
 
-    public static final BiFunction<Point, Point, Transition> LINEAR = {from, to  -> new LinearTransition(from.x, from.y, to.x, to.y) }
+    public static final Closure<Transition> LINEAR = {Point from, Point to  -> new LinearTransition(from, to) }
 
     protected double distance = 0
 
@@ -17,11 +15,11 @@ class LinearTransition extends TransitionBase {
 
     protected double direction
 
-    LinearTransition(Point from, Point to) {
+    private LinearTransition(Point from, Point to) {
         this(from.x, from.y, to.x, to.y)
     }
 
-    LinearTransition(int xFrom, int yFrom, int xTo, int yTo) {
+    protected LinearTransition(int xFrom, int yFrom, int xTo, int yTo) {
         this.pointFrom = new Point(xFrom, yFrom)
         this.pointTo = new Point(xTo, yTo)
 

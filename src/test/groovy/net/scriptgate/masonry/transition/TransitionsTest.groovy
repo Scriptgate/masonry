@@ -33,7 +33,7 @@ class TransitionsTest implements Application {
         pointTo = new Point(224, 224)
         traces = new ArrayList<>()
         traces.add(trace(ArcedTransition.ARCED.call(pointFrom, pointTo), new Color3f(0, 0, 1)))
-        traces.add(trace(new LinearTransition(pointFrom, pointTo), new Color3f(0, 1, 0)))
+        traces.add(trace(LinearTransition.LINEAR.call(pointFrom, pointTo), new Color3f(0, 1, 0)))
     }
 
     @Override

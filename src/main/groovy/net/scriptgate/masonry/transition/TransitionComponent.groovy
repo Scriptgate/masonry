@@ -5,8 +5,6 @@ import net.scriptgate.masonry.api.Brick
 import net.scriptgate.masonry.api.Transition
 import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
-import java.util.function.BiFunction
-
 import static net.scriptgate.masonry.transition.TransitionBase.stayAt
 
 class TransitionComponent implements Brick {
@@ -26,10 +24,10 @@ class TransitionComponent implements Brick {
     ]
 
     private Transition transition = stayAt(0, 0)
-    private BiFunction<Point, Point, Transition> TransitionSupplier
+    private Closure<Transition> transitionSupplier
 
-    TransitionComponent(BiFunction<Point, Point, Transition> TransitionSupplier) {
-        this.TransitionSupplier = TransitionSupplier
+    TransitionComponent(Closure<Transition> transitionSupplier) {
+        this.transitionSupplier = transitionSupplier
     }
 
     @Override
@@ -50,7 +48,7 @@ class TransitionComponent implements Brick {
     @Override
     void moveTo(int x, int y) {
         if (shouldMove(x, y)) {
-            transition = TransitionSupplier.apply(new Point(this.x, this.y), new Point(x, y))
+            transition = transitionSupplier.call(new Point(this.x, this.y), new Point(x, y))
         }
     }
 
