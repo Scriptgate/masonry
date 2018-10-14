@@ -1,16 +1,16 @@
-package net.scriptgate.masonry;
+package net.scriptgate.masonry
 
-import net.scriptgate.masonry.api.Brick;
+import net.scriptgate.masonry.api.Brick
 
-public class LayoutPosition {
+class LayoutPosition {
 
-    public int x;
-    public int y;
-    public Brick item;
-    public boolean isInstant;
+    public int x
+    public int y
+    public Brick item
+    public boolean isInstant
 
-    public LayoutPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+    LayoutPosition(int x, int y) {
+        this.x = x
+        this.y = y
     }
 }

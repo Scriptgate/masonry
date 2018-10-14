@@ -1,7 +1,7 @@
-package net.scriptgate.masonry.api;
+package net.scriptgate.masonry.api
 
-public interface Masonry {
+interface Masonry {
 
-    void layout();
+    void layout()
 
 }

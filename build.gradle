@@ -1,9 +1,8 @@
-apply plugin: 'java'
+apply plugin: 'groovy'
 apply plugin: 'maven'
 
 group 'net.scriptgate.masonry'
 version '0.0.1-SNAPSHOT'
-
 
 sourceCompatibility = 1.8
 
@@ -15,19 +14,25 @@ repositories {
 }
 
 dependencies {
+    compile localGroovy()
     compile group: 'net.scriptgate.engine', name: 'engine-api', version: '0.0.1-SNAPSHOT', changing: true
-    compile group: 'com.google.guava', name: 'guava', version: '19.0'
 
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.13'
+    compile(
+            'com.google.guava:guava:19.0',
+            'org.slf4j:slf4j-api:1.7.13'
+    )
 
-    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.13'
     testCompile group: 'net.scriptgate.engine', name: 'engine-lwjgl', version: '0.0.1-SNAPSHOT', changing: true
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.3.0'
+
+    testCompile(
+            'org.slf4j:slf4j-simple:1.7.13',
+            'junit:junit:4.12',
+            'org.assertj:assertj-core:3.3.0'
+    )
 }
 
 configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+    it.resolutionStrategy.cacheChangingModulesFor 0, "seconds"
 }
 
 task createPom << {
@@ -41,7 +46,7 @@ task createPom << {
     }.writeTo("${project.libsDir}/${project.name}-${project.version}.pom")
 }
 
-task sourceJar(type: org.gradle.api.tasks.bundling.Jar, dependsOn: classes) {
+task sourceJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }

@@ -1,46 +1,17 @@
-package net.scriptgate.masonry.api;
+package net.scriptgate.masonry.api
 
-import net.scriptgate.common.Point;
+import net.scriptgate.common.Point
 
-public interface Transition {
+interface Transition {
 
-    int toX();
+    abstract int toX()
 
-    int toY();
+    abstract int toY()
 
-    float getPercentage();
+    abstract float getPercentage()
 
-    Point getLocationAt(double elapsedTime);
+    abstract Point getLocationAt(double elapsedTime)
 
-    boolean isCompleted();
+    abstract boolean isCompleted()
 
-    static Transition none(int x, int y) {
-        return new Transition() {
-
-            @Override
-            public Point getLocationAt(double elapsedTime) {
-                return new Point(x, y);
-            }
-
-            @Override
-            public int toX() {
-                return x;
-            }
-
-            @Override
-            public int toY() {
-                return y;
-            }
-
-            @Override
-            public float getPercentage() {
-                return 1;
-            }
-
-            @Override
-            public boolean isCompleted() {
-                return true;
-            }
-        };
-    }
 }

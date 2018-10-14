@@ -1,91 +1,87 @@
-package net.scriptgate.masonry;
+package net.scriptgate.masonry
 
-import net.scriptgate.masonry.api.Brick;
-import net.scriptgate.masonry.api.BrickContainer;
+import net.scriptgate.masonry.api.Brick
+import net.scriptgate.masonry.api.BrickContainer
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+abstract class Outlayer {
 
-public abstract class Outlayer {
-
-    public static boolean IS_LAYOUT_INSTANT = false;
-    public static boolean IS_INIT_LAYOUT = true;
+    public static boolean IS_LAYOUT_INSTANT = false
+    public static boolean IS_INIT_LAYOUT = true
 
 
-    protected BrickContainer<? extends Brick> element;
-    private boolean isLayoutInited = false;
+    protected BrickContainer<? extends Brick> element
+    private boolean isLayoutInited = false
 
-    public int columnWidth = 50;
+    public int columnWidth = 50
 
-    public Outlayer(BrickContainer<? extends Brick> element, int columnWidth) {
-        this.columnWidth = columnWidth;
+    Outlayer(BrickContainer<? extends Brick> element, int columnWidth) {
+        this.columnWidth = columnWidth
 
         //TODO: validate element
-        this.element = element;
+        this.element = element
 
         if (IS_INIT_LAYOUT) {
-            this.layout();
+            this.layout()
         }
     }
 
-    public void layout() {
-        this.resetLayout();
+    void layout() {
+        this.resetLayout()
 
         // don't animate first layout
-        boolean isInstant = IS_LAYOUT_INSTANT || !this.isLayoutInited;
-        this.layoutItems(isInstant);
+        boolean isInstant = IS_LAYOUT_INSTANT || !this.isLayoutInited
+        this.layoutItems(isInstant)
 
         // flag for initalized
-        this.isLayoutInited = true;
+        this.isLayoutInited = true
     }
 
     private void layoutItems(boolean isInstant) {
-        this._layoutItems(element.getBricks(), isInstant);
+        this._layoutItems(element.getBricks(), isInstant)
 
-        this.postLayout();
+        this.postLayout()
     }
 
     private void _layoutItems(Collection<? extends Brick> items, boolean isInstant) {
         if (items == null || items.isEmpty()) {
             // no items, emit event with empty array
-            return;
+            return
         }
 
-        List<LayoutPosition> queue = new ArrayList<>();
+        List<LayoutPosition> queue = new ArrayList<>()
 
         for (Brick item : items) {
             // get x/y object from method
-            LayoutPosition position = this.getItemLayoutPosition(item);
+            LayoutPosition position = this.getItemLayoutPosition(item)
             // enqueue
-            position.item = item;
-            position.isInstant = isInstant || item.isLayoutInstant();
-            queue.add(position);
+            position.item = item
+            position.isInstant = isInstant || item.isLayoutInstant()
+            queue.add(position)
         }
 
-        this.processLayoutQueue(queue);
+        this.processLayoutQueue(queue)
     }
 
     private void processLayoutQueue(List<LayoutPosition> queue) {
         for (LayoutPosition obj : queue) {
-            this.positionItem(obj.item, obj.x, obj.y, obj.isInstant);
+            this.positionItem(obj.item, obj.x, obj.y, obj.isInstant)
         }
     }
 
     private void positionItem(Brick item, int x, int y, boolean isInstant) {
         if (isInstant) {
             // if not transition, just set CSS
-            item.goTo(x, y);
+            item.goTo(x, y)
         } else {
-            item.moveTo(x, y);
+            item.moveTo(x, y)
         }
     }
 
-    protected abstract LayoutPosition getItemLayoutPosition(Brick item);
+    protected abstract LayoutPosition getItemLayoutPosition(Brick item)
 
 
     private void postLayout() {
-        this.resizeContainer();
+        this.resizeContainer()
     }
 
     private void resizeContainer() {
@@ -93,14 +89,14 @@ public abstract class Outlayer {
     }
 
     protected void resetLayout() {
-        getSize();
+        getSize()
     }
 
     protected void getSize() {
 //        this.size = GetSize.getSize(this.element);
     }
 
-    public Collection<? extends Brick> getItems() {
-        return element.getBricks();
+    Collection<? extends Brick> getItems() {
+        return element.getBricks()
     }
 }

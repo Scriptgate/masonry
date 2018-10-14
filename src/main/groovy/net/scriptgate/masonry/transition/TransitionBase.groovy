@@ -1,37 +1,49 @@
-package net.scriptgate.masonry.transition;
+package net.scriptgate.masonry.transition
 
-import net.scriptgate.common.Point;
-import net.scriptgate.masonry.api.Transition;
+import net.scriptgate.common.Point
+import net.scriptgate.masonry.api.Transition
 
-public abstract class TransitionBase implements Transition {
+abstract class TransitionBase implements Transition {
 
-    public static float TRANSITION_SPEED = 1000;
-    private float transition = 0;
-    private boolean isCompleted = false;
+    public static float TRANSITION_SPEED = 1000
 
-    public Point getLocationAt(double elapsedTime) {
+    static Transition stayAt(int x, int y) {
+        final def location = new Point(x, y)
+        return [
+                getLocationAt: { double elapsedTime -> location },
+                toX          : { x },
+                toY          : { y },
+                getPercentage: { 1 },
+                isCompleted  : { true }
+        ] as Transition
+    }
+
+    private float transition = 0
+    private boolean isCompleted = false
+
+    Point getLocationAt(double elapsedTime) {
         if (isCompleted()) {
-            return new Point(toX(), toY());
+            return new Point(toX(), toY())
         }
 
         if (transition + elapsedTime > TRANSITION_SPEED) {
-            isCompleted = true;
-            return new Point(toX(), toY());
+            isCompleted = true
+            return new Point(toX(), toY())
         } else {
-            transition += elapsedTime;
-            return getLocation();
+            transition += elapsedTime
+            return getLocation()
         }
     }
 
-    public abstract Point getLocation();
+    abstract Point getLocation()
 
     @Override
-    public float getPercentage() {
-        return transition / TRANSITION_SPEED;
+    float getPercentage() {
+        return transition / TRANSITION_SPEED
     }
 
     @Override
-    public boolean isCompleted() {
-        return isCompleted;
+    boolean isCompleted() {
+        return isCompleted
     }
 }

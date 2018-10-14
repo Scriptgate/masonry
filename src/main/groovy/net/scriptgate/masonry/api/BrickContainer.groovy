@@ -1,13 +1,11 @@
-package net.scriptgate.masonry.api;
+package net.scriptgate.masonry.api
 
-import java.util.Collection;
+interface BrickContainer<T extends Brick> {
 
-public interface BrickContainer<T extends Brick> {
+    Collection<T> getBricks()
 
-    Collection<T> getBricks();
+    int getHeight()
 
-    int getHeight();
-
-    int getWidth();
+    int getWidth()
 
 }

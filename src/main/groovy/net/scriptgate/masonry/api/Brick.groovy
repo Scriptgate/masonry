@@ -1,20 +1,20 @@
-package net.scriptgate.masonry.api;
+package net.scriptgate.masonry.api
 
-public interface Brick {
+trait Brick {
 
-    void goTo(int x, int y);
+    abstract void goTo(int x, int y)
 
-    default void moveTo(int x, int y) {
-        goTo(x, y);
+    void moveTo(int x, int y) {
+        goTo(x, y)
     }
 
-    int getHeight();
+    abstract int getHeight()
 
-    int getWidth();
+    abstract int getWidth()
 
-    boolean isLayoutInstant();
+    abstract boolean isLayoutInstant()
 
-    int getX();
+    abstract int getX()
 
-    int getY();
+    abstract int getY()
 }

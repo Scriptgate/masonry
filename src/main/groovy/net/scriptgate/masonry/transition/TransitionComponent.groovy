@@ -1,90 +1,92 @@
-package net.scriptgate.masonry.transition;
+package net.scriptgate.masonry.transition
 
-import net.scriptgate.common.Point;
-import net.scriptgate.masonry.api.Transition;
+import net.scriptgate.common.Point
+import net.scriptgate.masonry.api.Transition
 
-import java.util.function.BiFunction;
+import java.util.function.BiFunction
 
-public class TransitionComponent {
+import static net.scriptgate.masonry.transition.TransitionBase.stayAt
 
-    private int x = 0;
-    private int y = 0;
+class TransitionComponent {
 
-    private boolean layoutInstant = false;
-    private boolean initialLayoutDone = false;
+    private int x = 0
+    private int y = 0
 
-    private Transition transition = Transition.none(0, 0);
+    private boolean layoutInstant = false
+    private boolean initialLayoutDone = false
 
-    private BiFunction<Point, Point, Transition> TransitionSupplier;
+    private Transition transition = stayAt(0, 0)
 
-    public TransitionComponent(BiFunction<Point, Point, Transition> TransitionSupplier) {
-        this.TransitionSupplier = TransitionSupplier;
+    private BiFunction<Point, Point, Transition> TransitionSupplier
+
+    TransitionComponent(BiFunction<Point, Point, Transition> TransitionSupplier) {
+        this.TransitionSupplier = TransitionSupplier
     }
 
-    public void goTo(int x, int y) {
+    void goTo(int x, int y) {
         if (isNullTransition(x, y)) {
-            return;
+            return
         }
-        this.x = x;
-        this.y = y;
-        transition = Transition.none(x, y);
-        this.initialLayoutDone = true;
+        this.x = x
+        this.y = y
+        transition = stayAt(x, y)
+        this.initialLayoutDone = true
     }
 
     private boolean isNullTransition(int x, int y) {
         if (x == this.x && y == this.y) {
-            return true;
+            return true
         }
         if (x == transition.toX() && y == transition.toY()) {
-            return true;
+            return true
         }
-        return false;
+        return false
     }
 
-    public void moveTo(int x, int y) {
+    void moveTo(int x, int y) {
         if (isNullTransition(x, y)) {
-            return;
+            return
         }
-        transition = TransitionSupplier.apply(new Point(this.x, this.y), new Point(x, y));
+        transition = TransitionSupplier.apply(new Point(this.x, this.y), new Point(x, y))
     }
 
-    public boolean isLayoutInstant() {
-        return layoutInstant || !initialLayoutDone;
+    boolean isLayoutInstant() {
+        return layoutInstant || !initialLayoutDone
     }
 
-    public int getX() {
-        return x;
+    int getX() {
+        return x
     }
 
-    public int getY() {
-        return y;
+    int getY() {
+        return y
     }
 
-    public double getPercentage() {
-        return transition.getPercentage();
+    double getPercentage() {
+        return transition.getPercentage()
     }
 
-    public void update(double elapsedTime) {
-        Point position = transition.getLocationAt(elapsedTime);
+    void update(double elapsedTime) {
+        Point position = transition.getLocationAt(elapsedTime)
         if (this.x != position.x || this.y != position.y) {
-            this.x = position.x;
-            this.y = position.y;
+            this.x = position.x
+            this.y = position.y
         }
     }
 
-    public void setLayoutInstant(boolean layoutInstant) {
-        this.layoutInstant = layoutInstant;
+    void setLayoutInstant(boolean layoutInstant) {
+        this.layoutInstant = layoutInstant
     }
 
-    public boolean isCompleted() {
-        return transition.isCompleted();
+    boolean isCompleted() {
+        return transition.isCompleted()
     }
 
-    public int getDestinationX() {
-        return transition.toX();
+    int getDestinationX() {
+        return transition.toX()
     }
 
-    public int getDestinationY() {
-        return transition.toY();
+    int getDestinationY() {
+        return transition.toY()
     }
 }

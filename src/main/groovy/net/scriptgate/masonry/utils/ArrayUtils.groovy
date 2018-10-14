@@ -1,14 +1,14 @@
-package net.scriptgate.masonry.utils;
+package net.scriptgate.masonry.utils
 
-public class ArrayUtils {
+class ArrayUtils {
 
-    public static int indexOf(int[] array, int element) {
+    static int indexOf(int[] array, int element) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == element) {
-                return i;
+                return i
             }
         }
-        return -1;
+        return -1
     }
 
 }
