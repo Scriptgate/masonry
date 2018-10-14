@@ -20,11 +20,12 @@ class TransitionComponent implements Brick {
     private int x = 0
     private int y = 0
 
-    private boolean layoutInstant = false
-    private boolean initialLayoutDone = false
+    private layout = [
+            instant : false,
+            initialDone: false
+    ]
 
     private Transition transition = stayAt(0, 0)
-
     private BiFunction<Point, Point, Transition> TransitionSupplier
 
     TransitionComponent(BiFunction<Point, Point, Transition> TransitionSupplier) {
@@ -39,7 +40,7 @@ class TransitionComponent implements Brick {
         this.x = x
         this.y = y
         transition = stayAt(x, y)
-        this.initialLayoutDone = true
+        this.layout.initialDone = true
     }
 
     private boolean shouldMove(int x, int y) { !isZeroTransition(this, x, y) }
@@ -53,7 +54,7 @@ class TransitionComponent implements Brick {
         }
     }
 
-    @Override boolean isLayoutInstant() { return layoutInstant || !initialLayoutDone }
+    @Override boolean isLayoutInstant() { return layout.instant || !layout.initialDone }
 
     @Override int getX() { return x }
     @Override int getY() { return y }
@@ -68,7 +69,7 @@ class TransitionComponent implements Brick {
         }
     }
 
-    void setLayoutInstant(boolean layoutInstant) { this.layoutInstant = layoutInstant }
+    void setLayoutInstant(boolean layoutInstant) { this.layout.instant = layoutInstant }
     boolean isCompleted() { return transition.isCompleted() }
     int getDestinationX() { return transition.toX() }
     int getDestinationY() { return transition.toY() }
@@ -76,6 +77,7 @@ class TransitionComponent implements Brick {
     @Override
     int getWidth() {
         //TODO:
+
         throw new NotImplementedException()
     }
 

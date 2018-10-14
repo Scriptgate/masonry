@@ -6,6 +6,8 @@ import net.scriptgate.engine.Application
 import net.scriptgate.engine.Engine
 import net.scriptgate.engine.InputComponent
 import net.scriptgate.engine.Renderer
+import net.scriptgate.masonry.transition.linear.LinearTransition
+import net.scriptgate.masonry.transition.linear.arc.ArcedTransition
 
 import static net.scriptgate.common.Color3f.RED
 import static net.scriptgate.masonry.Launcher.launch

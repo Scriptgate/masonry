@@ -9,8 +9,8 @@ import net.scriptgate.engine.Renderer
 import net.scriptgate.engine.lwjgl.OpenGLScreenshotHelper
 import net.scriptgate.engine.lwjgl.util.FileUtil
 import net.scriptgate.helper.GifHelper
-import net.scriptgate.masonry.transition.ArcedTransition
 import net.scriptgate.masonry.transition.TransitionTrace
+import net.scriptgate.masonry.transition.linear.arc.ArcedTransition
 
 import java.awt.image.BufferedImage
 

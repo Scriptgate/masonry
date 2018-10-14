@@ -1,7 +1,8 @@
-package net.scriptgate.masonry.transition
+package net.scriptgate.masonry.transition.linear.arc
 
 import net.scriptgate.common.Point
 import net.scriptgate.masonry.api.Transition
+import net.scriptgate.masonry.transition.linear.LinearTransition
 
 import java.util.function.BiFunction
 

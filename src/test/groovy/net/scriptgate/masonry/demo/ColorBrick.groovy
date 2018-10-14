@@ -6,7 +6,7 @@ import net.scriptgate.masonry.api.Brick
 import net.scriptgate.masonry.transition.TransitionComponent
 
 import static net.scriptgate.common.Color3f.BLACK
-import static net.scriptgate.masonry.transition.LinearTransition.LINEAR
+import static net.scriptgate.masonry.transition.linear.LinearTransition.LINEAR
 
 class ColorBrick implements Brick {
 
