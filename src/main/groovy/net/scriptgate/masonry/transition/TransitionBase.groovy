@@ -21,29 +21,21 @@ abstract class TransitionBase implements Transition {
     private float transition = 0
     private boolean isCompleted = false
 
-    Point getLocationAt(double elapsedTime) {
-        if (isCompleted()) {
-            return new Point(toX(), toY())
-        }
-
-        if (transition + elapsedTime > TRANSITION_SPEED) {
-            isCompleted = true
-            return new Point(toX(), toY())
-        } else {
-            transition += elapsedTime
-            return getLocation()
-        }
-    }
-
     abstract Point getLocation()
 
-    @Override
-    float getPercentage() {
-        return transition / TRANSITION_SPEED
+    Point getLocationAt(double elapsedTime) {
+        if (transition + elapsedTime > TRANSITION_SPEED) {completeTransition()}
+        if (isCompleted()) {return arriveAt(toX(), toY())}
+
+        transition += elapsedTime
+        return getLocation()
     }
 
-    @Override
-    boolean isCompleted() {
-        return isCompleted
-    }
+    @Override float getPercentage() { transition / TRANSITION_SPEED }
+
+    @SuppressWarnings("GrMethodMayBeStatic")
+    private Point arriveAt(int x, int y) { return new Point(x, y) }
+    private void completeTransition() { isCompleted = true }
+
+    @Override boolean isCompleted() { return isCompleted }
 }
