@@ -40,7 +40,7 @@ class ExportTransition implements Application {
     void initialize() {
         pointFrom = new Point(16, 16)
         pointTo = new Point(224, 224)
-        trace = trace(new ArcedTransition(pointFrom, pointTo), new Color3f(0, 1, 0))
+        trace = trace(ArcedTransition.ARCED.call(pointFrom, pointTo), new Color3f(0, 1, 0))
 
         screenCaptures = new ArrayList<>()
     }

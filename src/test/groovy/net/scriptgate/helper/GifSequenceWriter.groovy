@@ -1,6 +1,7 @@
 package net.scriptgate.helper
 
 import javax.imageio.*
+import javax.imageio.metadata.IIOMetadata
 
 //
 //  GifSequenceWriter.java
@@ -11,7 +12,6 @@ import javax.imageio.*
 // License. To view a copy of this license, visit
 // http://creativecommons.org/licenses/by/3.0/ or send a letter to Creative
 // Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.
-import javax.imageio.metadata.IIOMetadata
 import javax.imageio.metadata.IIOMetadataNode
 import javax.imageio.stream.ImageOutputStream
 import java.awt.image.RenderedImage
@@ -48,27 +48,27 @@ class GifSequenceWriter implements AutoCloseable {
 
         IIOMetadataNode root = (IIOMetadataNode) imageMetaData.getAsTree(metaFormatName)
 
-        IIOMetadataNode graphicsControlExtensionNode = getNode(root, "GraphicControlExtension")
+        IIOMetadataNode graphicsControlExtensionNode = getNode(root, 'GraphicControlExtension')
 
-        graphicsControlExtensionNode.setAttribute("disposalMethod", "none")
-        graphicsControlExtensionNode.setAttribute("userInputFlag", "FALSE")
-        graphicsControlExtensionNode.setAttribute("transparentColorFlag", "FALSE")
-        graphicsControlExtensionNode.setAttribute("delayTime", Integer.toString(timeBetweenFramesMS / 10))
-        graphicsControlExtensionNode.setAttribute("transparentColorIndex", "0")
+        graphicsControlExtensionNode.setAttribute('disposalMethod', 'none')
+        graphicsControlExtensionNode.setAttribute('userInputFlag', 'FALSE')
+        graphicsControlExtensionNode.setAttribute('transparentColorFlag', 'FALSE')
+        graphicsControlExtensionNode.setAttribute('delayTime', Integer.toString(timeBetweenFramesMS / 10 as Integer))
+        graphicsControlExtensionNode.setAttribute('transparentColorIndex', '0')
 
-        IIOMetadataNode commentsNode = getNode(root, "CommentExtensions")
-        commentsNode.setAttribute("CommentExtension", "Created by MAH")
+        IIOMetadataNode commentsNode = getNode(root, 'CommentExtensions')
+        commentsNode.setAttribute('CommentExtension', 'Created by MAH')
 
-        IIOMetadataNode appEntensionsNode = getNode(root, "ApplicationExtensions")
+        IIOMetadataNode appEntensionsNode = getNode(root, 'ApplicationExtensions')
 
-        IIOMetadataNode child = new IIOMetadataNode("ApplicationExtension")
+        IIOMetadataNode child = new IIOMetadataNode('ApplicationExtension')
 
-        child.setAttribute("applicationID", "NETSCAPE")
-        child.setAttribute("authenticationCode", "2.0")
+        child.setAttribute('applicationID', 'NETSCAPE')
+        child.setAttribute('authenticationCode', '2.0')
 
         int loop = loopContinuously ? 0 : 1
 
-        child.setUserObject([0x1, (loop & 0xFF),((loop >> 8) & 0xFF)])
+        child.setUserObject([0x1, (loop & 0xFF),((loop >> 8) & 0xFF)] as byte[])
         appEntensionsNode.appendChild(child)
 
         imageMetaData.setFromTree(metaFormatName, root)
@@ -103,9 +103,9 @@ class GifSequenceWriter implements AutoCloseable {
      * @throws IIOException if no GIF image writers are returned
      */
     private static ImageWriter getWriter() throws IIOException {
-        Iterator<ImageWriter> iter = ImageIO.getImageWritersBySuffix("gif")
+        Iterator<ImageWriter> iter = ImageIO.getImageWritersBySuffix('gif')
         if (!iter.hasNext()) {
-            throw new IIOException("No GIF Image Writers Exist")
+            throw new IIOException('No GIF Image Writers Exist')
         } else {
             return iter.next()
         }
