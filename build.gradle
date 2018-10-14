@@ -13,11 +13,25 @@ repositories {
     }
 }
 
+sourceSets {
+    api
+}
+
+configurations {
+    compile.extendsFrom apiCompile
+}
+
+configurations.all {
+    it.resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+}
+
 dependencies {
-    compile localGroovy()
-    compile group: 'net.scriptgate.engine', name: 'engine-api', version: '0.0.1-SNAPSHOT', changing: true
+
+    apiCompile localGroovy()
+    apiCompile group: 'net.scriptgate.engine', name: 'engine-api', version: '0.0.1-SNAPSHOT', changing: true
 
     compile(
+            sourceSets.api.output,
             'com.google.guava:guava:19.0',
             'org.slf4j:slf4j-api:1.7.13'
     )
@@ -31,9 +45,7 @@ dependencies {
     )
 }
 
-configurations.all {
-    it.resolutionStrategy.cacheChangingModulesFor 0, "seconds"
-}
+
 
 task createPom << {
     pom {
