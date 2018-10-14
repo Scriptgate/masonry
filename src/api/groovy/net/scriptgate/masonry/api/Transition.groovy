@@ -2,7 +2,7 @@ package net.scriptgate.masonry.api
 
 import net.scriptgate.common.Point
 
-interface Transition {
+trait Transition {
 
     abstract int toX()
     abstract int toY()
@@ -13,4 +13,5 @@ interface Transition {
 
     abstract boolean isCompleted()
 
+    boolean isAtEnd(int x, int y) { x == toX() && y == toY() }
 }

@@ -11,6 +11,12 @@ import static net.scriptgate.masonry.transition.TransitionBase.stayAt
 
 class TransitionComponent implements Brick {
 
+    private static boolean isZeroTransition(TransitionComponent component, int x, int y) {
+        if (component.isAt(x, y)) {return true}
+        if (component.transition.isAtEnd(x, y)) {return true}
+        return false
+    }
+
     private int x = 0
     private int y = 0
 
@@ -27,7 +33,7 @@ class TransitionComponent implements Brick {
 
     @Override
     void goTo(int x, int y) {
-        if (isZeroTransition(x, y)) {
+        if (isZeroTransition(this, x, y)) {
             return
         }
         this.x = x
@@ -36,17 +42,9 @@ class TransitionComponent implements Brick {
         this.initialLayoutDone = true
     }
 
-    private boolean shouldMove(int x, int y) { !isZeroTransition(x, y) }
+    private boolean shouldMove(int x, int y) { !isZeroTransition(this, x, y) }
 
-    private boolean isZeroTransition(int x, int y) {
-        if (x == this.x && y == this.y) {
-            return true
-        }
-        if (x == transition.toX() && y == transition.toY()) {
-            return true
-        }
-        return false
-    }
+    private boolean isAt(int x, int y) { x == this.x && y == this.y }
 
     @Override
     void moveTo(int x, int y) {
@@ -58,7 +56,6 @@ class TransitionComponent implements Brick {
     @Override boolean isLayoutInstant() { return layoutInstant || !initialLayoutDone }
 
     @Override int getX() { return x }
-
     @Override int getY() { return y }
 
     double getPercentage() { return transition.getPercentage() }
@@ -71,21 +68,10 @@ class TransitionComponent implements Brick {
         }
     }
 
-    void setLayoutInstant(boolean layoutInstant) {
-        this.layoutInstant = layoutInstant
-    }
-
-    boolean isCompleted() {
-        return transition.isCompleted()
-    }
-
-    int getDestinationX() {
-        return transition.toX()
-    }
-
-    int getDestinationY() {
-        return transition.toY()
-    }
+    void setLayoutInstant(boolean layoutInstant) { this.layoutInstant = layoutInstant }
+    boolean isCompleted() { return transition.isCompleted() }
+    int getDestinationX() { return transition.toX() }
+    int getDestinationY() { return transition.toY() }
 
     @Override
     int getWidth() {
@@ -93,7 +79,8 @@ class TransitionComponent implements Brick {
         throw new NotImplementedException()
     }
 
-    @Override int getHeight() {
+    @Override
+    int getHeight() {
         //TODO:
         throw new NotImplementedException()
     }
