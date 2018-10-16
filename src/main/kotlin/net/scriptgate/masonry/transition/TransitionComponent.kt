@@ -12,7 +12,7 @@ class TransitionComponent(private val TransitionSupplier: BiFunction<Point, Poin
     var y = 0
         private set
 
-    var isLayoutInstant = false
+    var isLayoutInstant = true
         get() = field || !initialLayoutDone
     private var initialLayoutDone = false
 

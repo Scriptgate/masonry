@@ -29,9 +29,12 @@ class MasonryGui : Application {
 
     }
 
-    override fun onTick(inputComponent: InputComponent, elapsedTime: Double) {
-        container.bricks.stream().forEach { brick -> brick.update(elapsedTime) }
+    override fun onUpdate(ticks: Int, frames: Int) {
+        println("ticks=$ticks frames=$frames count=${count++}")
+        container.bricks.forEach { brick -> brick.update(ticks.toDouble()) }
+    }
 
+    override fun onTick(inputComponent: InputComponent, elapsedTime: Double) {
         inputComponent.pressedKeys.forEach { key ->
             val width = (Math.floor(2 * Math.random() + 1) * 40).toInt()
             val height = (Math.floor(3 * Math.random() + 1) * 40).toInt()
@@ -40,6 +43,7 @@ class MasonryGui : Application {
 
                 when (key.keyName) {
                     "q" -> {
+
                         container.addBrick(brick)
                         masonry.layout()
                     }
@@ -62,7 +66,6 @@ class MasonryGui : Application {
     override fun render(renderer: Renderer) {
         renderer.setOpacity(0.5f)
         container.bricks.forEach { brick: ColorBrick -> brick.render(renderer) }
-        count++
         renderer.drawText(100,100, "Count: $count")
     }
 

@@ -17,14 +17,27 @@ apply plugin: 'maven'
 group 'net.scriptgate.masonry'
 version '0.0.1-SNAPSHOT'
 
-
 sourceCompatibility = 1.8
+compileKotlin { kotlinOptions { jvmTarget = "1.8" } }
+compileTestKotlin { kotlinOptions { jvmTarget = "1.8" } }
 
 repositories {
     mavenCentral()
     maven {
         url "https://github.com/Scriptgate/scriptgate-repo/raw/master"
     }
+}
+
+sourceSets {
+    demo
+}
+
+configurations {
+    demoCompile.extendsFrom compile
+}
+
+configurations.all {
+    it.resolutionStrategy.cacheChangingModulesFor 0, "seconds"
 }
 
 dependencies {
@@ -38,10 +51,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.3.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-}
-
-configurations.all {
-    it.resolutionStrategy.cacheChangingModulesFor 0, "seconds"
 }
 
 task createPom << {
@@ -62,14 +71,4 @@ task sourceJar(type: Jar, dependsOn: classes) {
 
 artifacts {
     archives sourceJar
-}
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
